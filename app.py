@@ -8,10 +8,15 @@ def home():
 
 @app.route("/transaction")
 def transaction():
-    income = 100
-    expense = 100
-    balance = income - expense
-    return f"transactions\nincome-{income} expense-{expense} balance-{balance}"
+    transactions = [
+    {"name": "Part-time job", "amount": 5000,
+ "category": "Salary", "type": "income"},
+    {"name": "job", "amount": 50000,
+ "category": "Salary", "type": "income"}
+                    ]        
+
+    return render_template("transaction.html",
+                           transactions = transactions)
 
 if __name__ == "__main__":
     app.run(debug=True)
