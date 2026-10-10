@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add transaction</title>
+</head>
+<body>
+    <form action = "/add" method = "post">
+        <div>
+            <label for = "name">name</label>
+            <input id = "name" name = "name" type = "text" placeholder="enter name">
+        </div>
+        <div>
+            <label for = "amount">amount</label>
+            <input id = "amount" amount = "amount" type = "number" placeholder="enter amount">
+        </div>
+        <div>
+            <label for = "category">category</label>
+            <input id = "category" category = "category" type = "text" placeholder="enter category">
+        </div>
+        <div>
+            <label for = "type">type</label>
+            
+            <select id="type" required>
+                <option value="income">income</option>
+                <option value="expense">expense</option>
+            </select> 
+        </div>
+
+        <br>
+
+        <div>
+            <button type = "submit">submit transaction</button>
+        </div>
+    </form>
+
+    
+</body>
+</html>
