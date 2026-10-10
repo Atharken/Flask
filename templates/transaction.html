@@ -24,16 +24,25 @@
               </th>
           </tr>
         </thead>  
-        <tbody>
-                {%for i in transactions%}
+        <tbody>{% for i in transactions %}
                 <tr>
                     <td>{{i.name}}</td>
                     <td>{{i.amount}}</td>
+                    
                     <td>{{i.category}}</td>
                     <td>{{i.type}}</td>
                 </tr>
                 {%endfor%}
         </tbody>
     </table>
+    <P>
+        {% if balance > 0 %}
+          remaining balance {{balance}}
+        {% elif balance < 0 %}
+          you are spending more than earning
+        {% else %}
+          invalid 
+        {%endif%}
+    </P>
 </body>
 </html>
