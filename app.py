@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 transactions = [
     {"name": "Part-time job", "amount": 0,
- "category": "Salary", "type": "income"},
+ "category": "Salary", "type": "income"},       # main data collector 
     {"name": "job", "amount": 50000,
  "category": "Salary", "type": "income"},
     {"name": "gig", "amount": -700,
@@ -13,7 +13,7 @@ transactions = [
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html")         #home page nothing special 
 
 @app.route("/transaction")
 def transaction():
@@ -48,6 +48,14 @@ def add_transaction():
         
         #return redirect(url_for(transaction))
     return render_template("add_transaction.html")
+
+@app.route("/remove/<int:index>", methods =["POST"])
+def remove(index):
+
+    transactions.pop(index)
+
+    return redirect(url_for('transaction'))
+    
      
 
 if __name__ == "__main__":
