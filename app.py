@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 transactions = [
-    {"name": "Part-time job", "amount": 0000,
+    {"name": "Part-time job", "amount": 0,
  "category": "Salary", "type": "income"},
     {"name": "job", "amount": 50000,
  "category": "Salary", "type": "income"},
