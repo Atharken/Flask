@@ -62,16 +62,27 @@ def remove(index):
 def summary():
     high = 0
 
+    highin = 0 
+
+    earn = None
+
     exp = None
 
     for i in transactions:
         if i['type'] == "expense" and high < i["amount"]:
-                high = i['amount'] 
-                exp = i['name']
+            high = i['amount'] 
+            exp = i['name']
+
+        if i['type'] == "income" and highin< i['amount']:
+            highin = i['amount']
+            earn = i['name']
+
 
     return render_template("summary.html",
                            high = high,
-                           exp = exp)
+                           exp = exp,
+                           highin = highin,
+                           earn =earn)
      
 
 if __name__ == "__main__":
