@@ -7,6 +7,9 @@
 </head>
 <body>
     <form action = "/add" method = "POST">
+        {% if success == True %}
+            <p>transaction succesfully saved</p>
+        {% endif %}
         <div>
             <label for = "name">name</label>
             <input id = "name" name = "name" type = "text" placeholder="enter name" required>
@@ -22,7 +25,7 @@
         <div>
             <label for = "type">type</label>
             
-            <select id="type" name = "type"required>
+            <select id="type" name = "type" required>
                 <option value="income">income</option>
                 <option value="expense">expense</option>
             </select> 
@@ -33,8 +36,8 @@
         <div>
             <button type = "submit">submit transaction</button>
         </div>
+     
     </form>
-
     <hr>
     <br>
     <br>
