@@ -46,7 +46,7 @@ def transaction():
 
 @app.route("/add", methods = ["GET","POST"])
 def add_transaction():
-
+    success = False
     if request.method == "POST":
         name = request.form.get("name")
         amount = float(request.form.get("amount"))
@@ -68,8 +68,9 @@ def add_transaction():
             w.writerow(new_transaction)
 
         transactions.append(new_transaction)
+        success = True
 
-    return render_template("add_transaction.html")
+    return render_template("add_transaction.html",success = success)
 
 @app.route("/remove/<int:index>", methods =["POST"])
 def remove(index):
@@ -82,6 +83,11 @@ def remove(index):
         w.writerows(transactions)
 
     return redirect(url_for('transaction'))
+@app.route("/edit/<int:index>", methods = ['POST','GET'])
+def edit(index):                                             #will make a edit function
+    pass
+
+
 
 @app.route("/summary")
 def summary():
