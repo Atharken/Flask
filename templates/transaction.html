@@ -39,6 +39,11 @@
                         <button type = "submit">remove</button>
                       </form>
                     </td>
+                    <td>
+                      <form action = "{{url_for('edit', index = loop.index0)}}" method = "post">
+                        <button type = "submit">edit</button>
+                      </form>
+                    </td>
                 </tr>
                 {%endfor%}
         </tbody>
