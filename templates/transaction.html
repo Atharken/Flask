@@ -22,6 +22,9 @@
               <th>
                 type
               </th>
+              <th>
+                date
+              </th>
           </tr>
         </thead>  
         <tbody>{% for i in transactions %}
@@ -30,6 +33,7 @@
                     <td>{{i.amount}}</td>
                     <td>{{i.category}}</td>
                     <td>{{i.type}}</td>
+                    <td>{{i.date}}</td>
                     <td>
                       <form action = "{{url_for('remove', index = loop.index0)}}" method = "post">
                         <button type = "submit">remove</button>
