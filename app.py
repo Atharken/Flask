@@ -1,19 +1,32 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import date,timedelta
+import csv
+from pathlib import Path
 
 app = Flask(__name__)
 
 
 
-transactions = [
-    {"name": "Part-time job", "amount": 0,
- "category": "Salary", "type": "income"},       # main data collector temp
-    {"name": "job", "amount": 50000,
- "category": "Salary", "type": "income"},
-    {"name": "gig", "amount": -700,
-  "category": "Salary", "type": "income"},
-  {"name": "test", "amount": 12000,
-    "category": "testing", "type": "expense"}
-                    ]        
+p = Path('data.csv')
+
+headers = ["name","amount","category","type","date"]
+
+if not p.exists():
+    with open("data.csv", "w", newline="") as f:
+        w = csv.DictWriter(f,fieldnames=headers)
+        w.writeheader()
+
+
+
+
+transactions = [      ]        
+
+with open("data.csv", "r", newline="") as f:
+    r = csv.DictReader(f)
+    for i in r:
+        temp = {"name" : i['name'],"amount" : float(i['amount']),"category" : i['category'],"type" : i['type'],"date" : i['date']}
+        transactions.append(temp)
+
 
 @app.route("/")
 def home():
@@ -40,12 +53,19 @@ def add_transaction():
         category = request.form.get("category")
         transaction_type = request.form.get("type")
 
+        current_date = str(date.today())
+
         new_transaction = {
             "name" : name,
             "amount" : amount,
             "category" : category,
             "type" : transaction_type,
+            "date" : current_date
         }
+
+        with open("data.csv","a",newline="") as f:
+            w = csv.DictWriter(f,fieldnames=headers)
+            w.writerow(new_transaction)
 
         transactions.append(new_transaction)
 
@@ -55,6 +75,11 @@ def add_transaction():
 def remove(index):
 
     transactions.pop(index)
+
+    with open("data.csv", "w",newline="") as f:
+        w = csv.DictWriter(f,fieldnames=headers)
+        w.writeheader()
+        w.writerows(transactions)
 
     return redirect(url_for('transaction'))
 
@@ -76,6 +101,7 @@ def summary():
         if i['type'] == "income" and highin< i['amount']:
             highin = i['amount']
             earn = i['name']
+
 
 
     return render_template("summary.html",
