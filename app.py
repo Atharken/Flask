@@ -5,11 +5,18 @@ from pathlib import Path
 
 app = Flask(__name__)
 
+headers = ["name","amount","category","type","date"]
+def rewrite(x):
+    with open("data.csv", "w",newline="") as f:
+        w = csv.DictWriter(f,fieldnames=headers)
+        w.writeheader()
+        w.writerows(x)
+
+
 
 
 p = Path('data.csv')
 
-headers = ["name","amount","category","type","date"]
 
 if not p.exists():
     with open("data.csv", "w", newline="") as f:
@@ -83,9 +90,25 @@ def remove(index):
         w.writerows(transactions)
 
     return redirect(url_for('transaction'))
+
 @app.route("/edit/<int:index>", methods = ['POST','GET'])
-def edit(index):                                             #will make a edit function
-    pass
+def edit(index):   
+    
+    tx = transactions[index]
+    
+    if request.method == "POST":      #get the new data updated 
+       if request.method == "POST":      
+        transactions[index]['name'] = request.form.get("name")
+        transactions[index]['amount'] = float(request.form.get("amount"))      
+        transactions[index]['category'] = request.form.get("category")
+        transactions[index]['type'] = request.form.get("type")
+
+        rewrite(transactions)
+
+        return redirect(url_for('transaction'))
+
+    return render_template("edit.html", transactions = transactions, index = index) # when user click on edit button
+
 
 
 
