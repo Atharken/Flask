@@ -37,7 +37,46 @@ with open("data.csv", "r", newline="") as f:
 
 @app.route("/")
 def home():
-    return render_template("home.html")         #home page nothing special 
+    category_type = {}
+
+    highest_category = ""
+    highest_amount = 0
+
+    lowest_category = ""
+
+
+    for i in transactions:
+        if i['category'] in category_type:
+            category_type[i['category']] += i['amount']
+        else:
+            category_type[i['category']] = i['amount']
+
+    if category_type:
+      lowest_category = list(category_type.keys())[0]
+      lowest_amount = list(category_type.values())[0]
+    else:
+      lowest_category = ""
+      lowest_amount = 0
+      
+    lowest_amount = list(category_type.values())[0]
+
+    for name,amount in category_type.items():
+        if highest_amount < amount:
+            highest_amount = amount
+            highest_category = name
+        if lowest_amount > amount:
+            lowest_category = name
+            lowest_amount = amount
+
+
+
+
+    return render_template("home.html",
+                          category_type = category_type,
+                          highest_amount = highest_amount,
+                           highest_category = highest_category,
+                           lowest_category = lowest_category,
+                           lowest_amount = lowest_amount)      #home page nothing special 
 
 @app.route("/transaction")
 def transaction():
@@ -45,7 +84,10 @@ def transaction():
 
     balance = 0
     for i in transactions:
-        balance += i['amount'] 
+        if i['type'] == "income":
+          balance += i['amount'] 
+        elif i['type'] == "expense":
+          balance -= i['amount'] 
 
     return render_template("transaction.html",
                            transactions = transactions,
@@ -56,7 +98,11 @@ def add_transaction():
     success = False
     if request.method == "POST":
         name = request.form.get("name")
-        amount = float(request.form.get("amount"))
+        amount_str = float(request.form.get("amount"))
+        try:
+            amount = float(amount_str)
+        except ValueError:
+            amount = 0
         category = request.form.get("category")
         transaction_type = request.form.get("type")
 
@@ -84,10 +130,7 @@ def remove(index):
 
     transactions.pop(index)
 
-    with open("data.csv", "w",newline="") as f:
-        w = csv.DictWriter(f,fieldnames=headers)
-        w.writeheader()
-        w.writerows(transactions)
+    rewrite(transactions)
 
     return redirect(url_for('transaction'))
 
@@ -96,8 +139,7 @@ def edit(index):
     
     tx = transactions[index]
     
-    if request.method == "POST":      #get the new data updated 
-       if request.method == "POST":      
+    if request.method == "POST":      #get the new data updated       
         transactions[index]['name'] = request.form.get("name")
         transactions[index]['amount'] = float(request.form.get("amount"))      
         transactions[index]['category'] = request.form.get("category")
@@ -131,14 +173,13 @@ def summary():
             highin = i['amount']
             earn = i['name']
 
+   
 
 
     return render_template("summary.html",
                            high = high,
                            exp = exp,
                            highin = highin,
-                           earn =earn)
-     
-
+                           earn =earn,)
 if __name__ == "__main__":
     app.run(debug=True)
