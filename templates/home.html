@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Finance Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
     <div class="container">
@@ -15,8 +16,18 @@
         <a href="/add">add transaction</a>
         <br>
         <a href="/summary">show summary</a>
-
-
-    </div>
+        <br>
+        <hr>
+        <br>
+        {% for category, amount in category_type.items() %}
+           {% if loop.index <= 4 %}
+             <p>category type -- [{{category}}] amount -- [{{amount}}]</p>
+           {% endif %}
+        {% endfor %}
+        <br>
+        <hr>
+        <br>
+        <p>highest category is [{{highest_category}}] amount-- [{{highest_amount}}] </p>
+        <p>lowest_category is [{{lowest_category}}] amount-- [{{lowest_amount}}] </p>
 </body>
 </html>
