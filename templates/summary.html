@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
    
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
 </head>
 <body>
-    <p>highest expense is [{{exp}}] amount-- [{{high}}] </p>
-    <br>
-    <hr>
-    <br>
-    <p>highest income is [{{earn}}] amount-- [{{highin}}] </p>
-    
+    <div class = "container">
 
-    
-    <a href = "/">back</a>
+        <button id="theme-toggle" type="button">
+            🌙 Dark mode
+        </button>
+        <p>highest expense is [{{exp}}] amount-- [{{high}}] </p>
+        <br>
+        <hr>
+        <br>
+        <p>highest income is [{{earn}}] amount-- [{{highin}}] </p>
+        
+        
+        
+        <a href = "/">back</a>
+    </div>
+        <script src="{{ url_for('static', filename='theme.js') }}"></script>
 </body>
 </html>
