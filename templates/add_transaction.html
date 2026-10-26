@@ -4,45 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>add transaction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 
 </head>
 <body>
-    <form action = "/add" method = "POST">
-        {% if success == True %}
+    <button id="theme-toggle" type="button">
+        🌙 Dark mode
+    </button>
+    <div class = "container">
+
+        <form action = "/add" method = "POST">
+            {% if success == True %}
             <p>transaction succesfully saved</p>
-        {% endif %}
-        <div>
-            <label for = "name">name</label>
-            <input id = "name" name = "name" type = "text" placeholder="enter name" required>
-        </div>
-        <div>
-            <label for = "amount">amount</label>
-            <input id = "amount" name = "amount" type = "number" step = "0.01" placeholder="enter amount" required>
-        </div>
-        <div>
-            <label for = "category">category</label>
-            <input id = "category" name = "category" type = "text" placeholder="enter category" required>
-        </div>
-        <div>
-            <label for = "type">type</label>
+            {% endif %}
+            <div>
+                <label for = "name">name</label>
+                <input id = "name" name = "name" type = "text" placeholder="enter name" required>
+            </div>
+            <div>
+                <label for = "amount">amount</label>
+                <input id = "amount" name = "amount" type = "number" step = "0.01" placeholder="enter amount" required>
+            </div>
+            <div>
+                <label for = "category">category</label>
+                <input id = "category" name = "category" type = "text" placeholder="enter category" required>
+            </div>
+            <div>
+                <label for = "type">type</label>
+                
+                <select id="type" name = "type" required>
+                    <option value="income">income</option>
+                    <option value="expense">expense</option>
+                </select> 
+            </div>
             
-            <select id="type" name = "type" required>
-                <option value="income">income</option>
-                <option value="expense">expense</option>
-            </select> 
-        </div>
-
+            <br>
+            
+            <div>
+                <button type = "submit">submit transaction</button>
+            </div>
+            
+        </form>
+        <hr>
         <br>
-
-        <div>
-            <button type = "submit">submit transaction</button>
-        </div>
-     
-    </form>
-    <hr>
-    <br>
-    <br>
-    <a href = "/">back</a>
+        <br>
+        <a href = "/">back</a>
+        
+    </div>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
     
 </body>
 </html>
