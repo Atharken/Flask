@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
+    <button id="theme-toggle" type="button">
+    🌙 Dark mode
+    </button>
     <div class="container">
         <h2>Dashboard</h2>
-        <h1>Personal Finance Manager</h1>
+        <h1>Pani bottle manager</h1>
         <p>Track your income, expenses, and financial health in real time.</p>
         <a href="/transaction">View Transactions</a>
         <br>
@@ -29,5 +32,8 @@
         <br>
         <p>highest category is [{{highest_category}}] amount-- [{{highest_amount}}] </p>
         <p>lowest_category is [{{lowest_category}}] amount-- [{{lowest_amount}}] </p>
+    </div>
+
+        <script src="{{ url_for('static', filename='theme.js') }}"></script>
 </body>
 </html>
