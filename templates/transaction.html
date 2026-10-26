@@ -4,62 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
 </head>
 <body>
+  <button id="theme-toggle" type="button">
+    🌙 Dark mode
+  </button>
+  <div class = "container">
+
     <table>
-        <caption>transaction report</caption>
-        <thead>
-          <tr>
-              <th>
-                name
-              </th>
-              <th>
-                amount
-              </th>
-              <th>
-                category
-              </th>
-              <th>
-                type
-              </th>
-              <th>
-                date
-              </th>
-          </tr>
-        </thead>  
-        <tbody>{% for i in transactions %}
-                <tr>
-                    <td>{{i.name}}</td>
-                    <td>{{i.amount}}</td>
-                    <td>{{i.category}}</td>
-                    <td>{{i.type}}</td>
-                    <td>{{i.date}}</td>
-                    <td>
-                      <form action = "{{url_for('remove', index = loop.index0)}}" method = "post">
-                        <button type = "submit">remove</button>
-                      </form>
-                    </td>
-                    <td>
-                      <form action = "{{url_for('edit', index = loop.index0)}}" method = "get">
-                        <button type = "submit">edit</button>
-                      </form>
-                    </td>
-                </tr>
-                {%endfor%}
-        </tbody>
+      <caption>transaction report</caption>
+      <thead>
+        <tr>
+          <th>
+            name
+          </th>
+          <th>
+            amount
+          </th>
+          <th>
+            category
+          </th>
+          <th>
+            type
+          </th>
+          <th>
+            date
+          </th>
+        </tr>
+      </thead>  
+      <tbody>{% for i in transactions %}
+        <tr>
+          <td>{{i.name}}</td>
+          <td>{{i.amount}}</td>
+          <td>{{i.category}}</td>
+          <td>{{i.type}}</td>
+          <td>{{i.date}}</td>
+          <td>
+            <form action = "{{url_for('remove', index = loop.index0)}}" method = "post">
+              <button type = "submit">remove</button>
+            </form>
+          </td>
+          <td>
+            <form action = "{{url_for('edit', index = loop.index0)}}" method = "get">
+              <button type = "submit">edit</button>
+            </form>
+          </td>
+        </tr>
+        {%endfor%}
+      </tbody>
     </table>
     <P>
-        {% if balance > 0 %}
-          remaining balance {{balance}}
-        {% elif balance < 0 %}
-          you are spending more than earning
-        {% else %}
-          invalid 
-        {%endif%}
+      {% if balance > 0 %}
+      remaining balance {{balance}}
+      {% elif balance < 0 %}
+      you are spending more than earning
+      {% else %}
+      invalid 
+      {%endif%}
     </P>
     <hr>
     <br>
     <a href = "/">back</a>
-</body>
-</html>
+  </div>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  </body>
+  </html>
