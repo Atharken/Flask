@@ -37,14 +37,20 @@ with open("data.csv", "r", newline="") as f:
 
 @app.route("/")
 def home():
-    category_type = {}
+    category_type = {}  #category : amount
 
     highest_category = ""
     highest_amount = 0
 
     lowest_category = ""
 
-
+    if len(transactions) == 0:
+        return render_template("home.html",
+                          category_type = category_type,
+                          highest_amount = highest_amount,
+                           highest_category = highest_category,
+                           lowest_category = lowest_category,
+                           lowest_amount = 0)      #home page nothing special
     for i in transactions:
         if i['category'] in category_type:
             category_type[i['category']] += i['amount']
